@@ -14,8 +14,13 @@ class CreateProductsHasCategoriesTable extends Migration
     public function up()
     {
         Schema::create('products_has_categories', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+	    $table->unsignedBigInteger('product_id');
+	    $table->unsignedBigInteger('category_id');
+
+	    $table->foreign('product_id')->references('id')->on('products');
+	    $table->foreign('category_id')->references('id')->on('categories');
+
+	    $table->primary(['product_id', 'category_id']);
         });
     }
 
